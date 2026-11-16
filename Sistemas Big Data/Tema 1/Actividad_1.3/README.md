@@ -45,6 +45,7 @@ Crea un archivo .env en la carpeta principal. Asegúrate de que este archivo est
 
 BSKY_IDENTIFIER=tu_usuario
 BSKY_PASSWORD=tu_app_password
+MONGO_CONECTION=mongodb://localhost:27017/
 CLAVE_API_GEMINI=tu_api_key
 
 

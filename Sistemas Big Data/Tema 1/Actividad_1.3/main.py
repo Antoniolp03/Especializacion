@@ -69,7 +69,9 @@ feed_limpio = limpiar_feed(client)
 
 # Creamos el cliente de mongodb para gestionar el proceso de guardar el feed
 
-client_mongo = pymongo.MongoClient("mongodb://root:contra@localhost:27017/")
+MONGO_CONECTION = os.environ.get('MONGO_CONECTION')
+
+client_mongo = pymongo.MongoClient(MONGO_CONECTION)
 
 databases_list = client_mongo.list_database_names()
 
@@ -97,14 +99,16 @@ prompt = f"Te voy a pasar el feed de un usuario, quiero que lo analices y me exp
 # Hacemos la consulta a la API de gemini, eligiendo el modelo y pasando el prompt
 
 response = client_gemini.models.generate_content(
-    model = "gemini-3.5-flash",
+    model = "gemini-3.5-flash-lite",
     contents = prompt
 )
 
 
-# Almacenamos el texto de la respuesta de gemini y lo guardamos en un .txt
+# Almacenamos el texto de la respuesta de gemini, mostramos la respuesta y la guardamos en un .txt
 
 respuesta = response.text or "El modelo no generó ninguna respuesta"
+
+print(respuesta)
 
 with open("1_3_Lopez_Pina_Antonio.txt", "w", encoding="utf-8") as archivo:
     archivo.write(respuesta)
